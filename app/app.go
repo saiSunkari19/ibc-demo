@@ -55,6 +55,7 @@ var (
 		upgrade.AppModuleBasic{},
 		evidence.AppModuleBasic{},
 		ibc.AppModuleBasic{},
+		ibctransfer.AppModuleBasic{},
 	)
 	
 	maccPerms = map[string][]string{
