@@ -101,6 +101,7 @@ type InterchangeApp struct {
 	upgradeKeeper  upgrade.Keeper
 	evidenceKeeper evidence.Keeper
 	ibcKeeper      ibc.Keeper
+	transferKeeper ibctransfer.Keeper
 	
 	mm *module.Manager
 	
@@ -121,6 +122,7 @@ func NewInterchangeApp(
 		bam.MainStoreKey, auth.StoreKey, staking.StoreKey,
 		supply.StoreKey, mint.StoreKey, distr.StoreKey, slashing.StoreKey,
 		gov.StoreKey, params.StoreKey, ibc.StoreKey, evidence.StoreKey, upgrade.StoreKey,
+		ibctransfer.StoreKey,
 	)
 	tKeys := sdk.NewTransientStoreKeys(staking.TStoreKey, params.TStoreKey)
 	
@@ -180,6 +182,11 @@ func NewInterchangeApp(
 	
 	app.ibcKeeper = ibc.NewKeeper(app.cdc, keys[ibc.StoreKey], app.bankKeeper, app.supplyKeeper)
 	
+	transferCapKey := app.ibcKeeper.PortKeeper.BindPort(bank.ModuleName)
+	app.transferKeeper = ibctransfer.NewKeeper(
+		app.cdc, keys[ibctransfer.StoreKey], transferCapKey,
+		app.ibcKeeper.ChannelKeeper, app.bankKeeper, app.supplyKeeper, )
+	
 	app.mm = module.NewManager(
 		genutil.NewAppModule(app.accountKeeper, app.stakingKeeper, app.BaseApp.DeliverTx),
 		auth.NewAppModule(app.accountKeeper),
@@ -192,6 +199,7 @@ func NewInterchangeApp(
 		upgrade.NewAppModule(app.upgradeKeeper),
 		evidence.NewAppModule(app.evidenceKeeper),
 		ibc.NewAppModule(app.ibcKeeper),
+		ibctransfer.NewAppModule(app.transferKeeper),
 	)
 	
 	app.mm.SetOrderBeginBlockers(upgrade.ModuleName, slashing.ModuleName)

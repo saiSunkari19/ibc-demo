@@ -5,8 +5,6 @@ import (
 	"os"
 	"path"
 	
-	"github.com/saiSunkari19/interchange/types"
-	
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/keys"
@@ -26,7 +24,8 @@ import (
 	"github.com/tendermint/go-amino"
 	"github.com/tendermint/tendermint/libs/cli"
 	
-	"github.com/saiSunkari19/interchange/app"
+	"github.com/saiSunkari19/ibc-demo/app"
+	"github.com/saiSunkari19/ibc-demo/types"
 )
 
 func main() {
@@ -38,7 +37,7 @@ func main() {
 	config.SetBech32PrefixForAccount(types.Bech32PrefixAccAddr, types.Bech32PrefixAccPub)
 	config.SetBech32PrefixForValidator(types.Bech32PrefixValAddr, types.Bech32PrefixValPub)
 	config.SetBech32PrefixForConsensusNode(types.Bech32PrefixConsAddr, types.Bech32PrefixConsPub)
-	config.SetKeyringServiceName("interchange")
+	config.SetKeyringServiceName("ibc-demo")
 	config.Seal()
 	
 	rootCmd := &cobra.Command{

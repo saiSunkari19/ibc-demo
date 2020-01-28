@@ -6,8 +6,6 @@ import (
 	
 	"github.com/cosmos/cosmos-sdk/server"
 	
-	"github.com/saiSunkari19/interchange/types"
-	
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	
@@ -16,8 +14,6 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmtypes "github.com/tendermint/tendermint/types"
 	dbm "github.com/tendermint/tm-db"
-	
-	"github.com/saiSunkari19/interchange/app"
 	
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client/debug"
@@ -28,7 +24,9 @@ import (
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	
-	_server "github.com/saiSunkari19/interchange/server"
+	"github.com/saiSunkari19/ibc-demo/app"
+	_server "github.com/saiSunkari19/ibc-demo/server"
+	"github.com/saiSunkari19/ibc-demo/types"
 )
 
 const flagInvCheckPeriod = "inv-check-period"
@@ -42,7 +40,7 @@ func main() {
 	config.SetBech32PrefixForAccount(types.Bech32PrefixAccAddr, types.Bech32PrefixAccPub)
 	config.SetBech32PrefixForValidator(types.Bech32PrefixValAddr, types.Bech32PrefixValPub)
 	config.SetBech32PrefixForConsensusNode(types.Bech32PrefixConsAddr, types.Bech32PrefixConsPub)
-	config.SetKeyringServiceName("interchange")
+	config.SetKeyringServiceName("ibc-demo")
 	config.Seal()
 	
 	ctx := server.NewDefaultContext()

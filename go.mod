@@ -1,4 +1,4 @@
-module github.com/saiSunkari19/interchange
+module github.com/saiSunkari19/ibc-demo
 
 go 1.13
 
