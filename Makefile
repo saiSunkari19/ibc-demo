@@ -4,7 +4,7 @@ VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
 COMMIT := $(shell git log -1 --format='%H')
 
 # TODO: Update the ldflags with the app, client & server names
-ldflags = -X github.com/saiSunkari19/ibc-demo/version.Name=Interchange \
+ldflags = -X github.com/saiSunkari19/ibc-demo/version.Name=IBC-DEMO \
 	-X github.com/saiSunkari19/ibc-demo/version.ServerName=assetd \
 	-X github.com/saiSunkari19/ibc-demo/version.ClientName=assetcli \
 	-X github.com/saiSunkari19/ibc-demo/version.Version=$(VERSION) \
